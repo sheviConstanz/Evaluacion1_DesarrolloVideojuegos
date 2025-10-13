@@ -10,6 +10,6 @@ public class ContadorItems : MonoBehaviour
     public void SumarItem()
     {
         itemsRecogidos++;
-        textoContador.text = "Cristales: " + itemsRecogidos + " / " + totalItems;
+        textoContador.text = "Cervezas: " + itemsRecogidos + " / " + totalItems;
     }
 }
