@@ -21,8 +21,12 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame()
     {
+    
+        UnityEditor.EditorApplication.isPlaying = false; // Detiene el juego en el editor
         Application.Quit();
-        Debug.Log("Saliendo del juego...");
+    
+        //Application.Quit();
+        //Debug.Log("Saliendo del juego...");
     }
     public void VolverMenu()
     {

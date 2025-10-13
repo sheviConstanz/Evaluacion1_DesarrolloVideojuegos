@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 
 public class Item : MonoBehaviour
 {
@@ -20,3 +20,4 @@ public class Item : MonoBehaviour
         Destroy(gameObject);
     }
 }
+*/
