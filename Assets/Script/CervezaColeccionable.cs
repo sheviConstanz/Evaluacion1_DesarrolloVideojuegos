@@ -18,7 +18,7 @@ public class CervezaColeccionable : MonoBehaviour
     void Awake()
     {
         // busca una vez el contador en la escena
-        contador = FindObjectOfType<ContadorItems>();
+        contador = FindFirstObjectByType<ContadorItems>();
         var col = GetComponent<Collider>();
         if (col) col.isTrigger = true; // aseguramos trigger
     }
