@@ -3,39 +3,50 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject optionsMenu;
-    public GameObject mainMenu;
-    public GameObject optionsSound;
+    [Header("Paneles")]
+    public GameObject mainMenu;       // Menú principal
+    public GameObject optionsMenu;    // Opciones generales
+    public GameObject optionsSound;   // Opciones de sonido
+    public GameObject optionsScreen;  // ✅ Opciones de pantalla (nuevo)
 
-    public void ShowMainMenu()
+    void Awake()
     {
-        mainMenu.SetActive(true);
-        optionsMenu.SetActive(false);
+        // Al iniciar, muestra el menú principal
+        ShowOnly(mainMenu);
     }
 
-    public void ShowOptionsMenu()
+    // Muestra SOLO el panel indicado y oculta los demás
+    void ShowOnly(GameObject panelToShow)
     {
-        mainMenu.SetActive(false);
-        optionsMenu.SetActive(true);
+        if (mainMenu)      mainMenu.SetActive(panelToShow == mainMenu);
+        if (optionsMenu)   optionsMenu.SetActive(panelToShow == optionsMenu);
+        if (optionsSound)  optionsSound.SetActive(panelToShow == optionsSound);
+        if (optionsScreen) optionsScreen.SetActive(panelToShow == optionsScreen);
     }
 
-    public void QuitGame()
+    // --- Navegación ---
+    public void ShowMainMenu()      => ShowOnly(mainMenu);
+    public void ShowOptionsMenu()   => ShowOnly(optionsMenu);
+    public void ShowOptionsSound()  => ShowOnly(optionsSound);
+    public void ShowOptionsScreen() => ShowOnly(optionsScreen); // ✅ nuevo
+
+    // --- Flujo de juego ---
+    public void StartGame()
     {
-    
-        UnityEditor.EditorApplication.isPlaying = false; // Detiene el juego en el editor
-        Application.Quit();
-    
-        //Application.Quit();
-        //Debug.Log("Saliendo del juego...");
+        SceneManager.LoadScene("Level1");
     }
+
     public void VolverMenu()
     {
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void StartGame()
+    public void QuitGame()
     {
-        SceneManager.LoadScene("Level1");
+    #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false; // Detiene el juego en el editor
+    #endif
+        Application.Quit();
+        // Debug.Log("Saliendo del juego...");
     }
-    
 }

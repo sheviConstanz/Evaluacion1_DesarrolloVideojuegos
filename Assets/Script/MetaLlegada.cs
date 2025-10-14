@@ -1,24 +1,31 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using TMPro;
 
 [RequireComponent(typeof(Collider))]
-public class MetaLlegada : MonoBehaviour
+[RequireComponent(typeof(AudioSource))]
+public class MetaWinner : MonoBehaviour
 {
-    [Header("Detección")]
-    public string etiquetaJugador = "Player";
+    [Header("Detección del jugador")]
+    [SerializeField] string tagJugador = "Player";
 
-    [Header("Cambio de escena")]
-    [Tooltip("Si es >= 0 y hay LoadManager en la escena, se usará este índice con barra de carga.")]
-    public int indiceEscenaSiguiente = -1;
+    [Header("UI Winner")]
+    [SerializeField] GameObject winnerCanvas;
+    [SerializeField] TMP_Text winnerItemsText;
+    [SerializeField] TMP_Text winnerTimeText;
 
-    [Tooltip("Si no hay LoadManager o no quieres usar índice, puedes poner el nombre de la escena aquí.")]
-    public string nombreEscenaSiguiente = "";
+    [Header("Configuración")]
+    [SerializeField] bool pausarAlGanar = true;
+    [SerializeField] bool exigirTodosLosItems = false;
 
-    [Header("Feedback (opcional)")]
-    public AudioSource audioFuente;
-    public float retardoAntesDeSalir = 0.5f;
 
-    private bool activada = false;
+    [Header("Audio de Victoria")]
+    [SerializeField] AudioClip sonidoVictoria; // 🎵 arrastra aquí el clip
+
+
+    private AudioSource audioSource;
+
+    Contador contador;
+    ContadorItems items;
 
     void Reset()
     {
@@ -26,44 +33,158 @@ public class MetaLlegada : MonoBehaviour
         if (col) col.isTrigger = true;
     }
 
+    void Awake()
+    {
+        contador = FindFirstObjectByType<Contador>();
+        items = FindFirstObjectByType<ContadorItems>();
+        audioSource = GetComponent<AudioSource>();
+        if (winnerCanvas) winnerCanvas.SetActive(false);
+    }
+
     void OnTriggerEnter(Collider other)
     {
-        if (activada) return;
-        if (!other.CompareTag(etiquetaJugador)) return;
-        activada = true;
+        if (!other.CompareTag(tagJugador)) return;
+        if (exigirTodosLosItems && items && items.Recogidos < items.Total) return;
 
-        // SFX opcional
-        float delay = 0f;
-        if (audioFuente && audioFuente.clip)
-        {
-            audioFuente.Play();
-            delay = Mathf.Max(delay, audioFuente.clip.length);
-        }
-
-        Invoke(nameof(CambiarEscena), Mathf.Max(delay, retardoAntesDeSalir));
+        MostrarWinner();
     }
 
-    void CambiarEscena()
+    void MostrarWinner()
     {
-        // Asegurar que el tiempo esté normal por si alguien lo pausó antes
-        Time.timeScale = 1f;
-
-        // 1) Usar LoadManager (si existe y se dio un índice válido)
-        var loader = FindObjectOfType<LoadManager>();
-        if (loader != null && indiceEscenaSiguiente >= 0)
+        if (!winnerCanvas)
         {
-            loader.SceneLoad(indiceEscenaSiguiente); // usa tu panel+slider de carga
+            Debug.LogError("❌ WinnerCanvas no asignado.");
             return;
         }
 
-        // 2) Cargar por nombre (si se indicó)
-        if (!string.IsNullOrWhiteSpace(nombreEscenaSiguiente))
+        // 🎵 Reproducir sonido de victoria
+        if (sonidoVictoria && audioSource)
         {
-            SceneManager.LoadScene(nombreEscenaSiguiente);
-            return;
+            audioSource.clip = sonidoVictoria;
+            audioSource.Play();
         }
 
-        // 3) Fallback: volver al menú principal
-        SceneManager.LoadScene("MainMenu");
+        // Actualizar textos
+        if (winnerItemsText && items)
+            winnerItemsText.text = $"Cristales: {items.Recogidos} / {items.Total}";
+
+        if (winnerTimeText && contador)
+        {
+            float t = contador.GetTiempoPartida();
+            int min = Mathf.FloorToInt(t / 60f);
+            float seg = t % 60f;
+            winnerTimeText.text = $"Tiempo: {min:00}:{seg:00.00}";
+        }
+
+        // Mostrar panel
+        winnerCanvas.SetActive(true);
+        var cv = winnerCanvas.GetComponent<Canvas>();
+        if (cv) { cv.overrideSorting = true; cv.sortingOrder = 500; }
+
+        if (pausarAlGanar)
+        {
+            if (contador) contador.PausarJuego();
+            else Time.timeScale = 0f;
+        }
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        Debug.Log("🏆 ¡Meta alcanzada! Mostrando Winner y reproduciendo sonido.");
     }
 }
+
+/*using UnityEngine;
+using TMPro;
+
+[RequireComponent(typeof(Collider))]
+public class MetaWinner : MonoBehaviour
+{
+    [Header("Detección del jugador")]
+    [SerializeField] string tagJugador = "Player";
+
+    [Header("UI Winner")]
+    [SerializeField] GameObject winnerCanvas;      // Canvas/Panel Winner
+    [SerializeField] TMP_Text winnerItemsText;     // Texto TMP para "Cristales: X / Y"
+    [SerializeField] TMP_Text winnerTimeText;      // Texto TMP para "Tiempo: XX.XX s"
+
+    [Header("Configuración")]
+    [SerializeField] bool pausarAlGanar = true;
+    [SerializeField] bool exigirTodosLosItems = false; // si se requiere recolectar todo
+
+    Contador contador;
+    ContadorItems items;
+
+    void Reset()
+    {
+        var col = GetComponent<Collider>();
+        if (col) col.isTrigger = true;
+    }
+
+    void Awake()
+    {
+        contador = FindFirstObjectByType<Contador>();
+        items = FindFirstObjectByType<ContadorItems>();
+        if (winnerCanvas) winnerCanvas.SetActive(false);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag(tagJugador)) return;
+
+        // Verifica si juntó todo (si se exige)
+        if (exigirTodosLosItems && items && items.Recogidos < items.Total) return;
+
+        MostrarWinner();
+    }
+
+    void MostrarWinner()
+    {
+        if (!winnerCanvas)
+        {
+            Debug.LogError("❌ No se asignó el WinnerCanvas. Arrástralo en el Inspector.");
+            return;
+        }
+
+        // Actualizar textos
+        if (winnerItemsText && items)
+            winnerItemsText.text = $"Cristales: {items.Recogidos} / {items.Total}";
+
+        if (winnerTimeText && contador)
+        {
+            float t = contador.GetTiempoPartida();
+            int min = Mathf.FloorToInt(t / 60f);
+            float seg = t % 60f;
+            winnerTimeText.text = $"Tiempo: {min:00}:{seg:00.00}";
+        }
+
+        // Mostrar el canvas
+        winnerCanvas.SetActive(true);
+
+        // Orden alto para que quede encima
+        var cv = winnerCanvas.GetComponent<Canvas>();
+        if (cv) { cv.overrideSorting = true; cv.sortingOrder = 500; }
+
+        // CanvasGroup visible
+        var cg = winnerCanvas.GetComponentInChildren<CanvasGroup>(true);
+        if (cg)
+        {
+            cg.alpha = 1f;
+            cg.interactable = true;
+            cg.blocksRaycasts = true;
+        }
+
+        // Pausa y cursor visible
+        if (pausarAlGanar)
+        {
+            if (contador) contador.PausarJuego();
+            else Time.timeScale = 0f;
+        }
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        Debug.Log("🏆 ¡Meta alcanzada! Mostrando Winner.");
+    }
+}
+*/

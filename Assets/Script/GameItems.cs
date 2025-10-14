@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using TMPro;
 
 public class ContadorItems : MonoBehaviour
@@ -36,10 +36,6 @@ public class ContadorItems : MonoBehaviour
 
         // Sumar tiempo por ítem
         if (contador) contador.AgregarTiempo(segundosPorItem);
-
-        // ¿Completó todos?
-        if (itemsRecogidos >= totalItems)
-            MostrarWinner();
     }
 
     void ActualizarUI()
@@ -48,71 +44,51 @@ public class ContadorItems : MonoBehaviour
             textoContador.text = "Cristales: " + itemsRecogidos + " / " + totalItems;
     }
 
-    /*void MostrarWinner()
+   public int Total => totalItems;
+ public int Recogidos => itemsRecogidos;
+    
+}
+*/
+
+using UnityEngine;
+using TMPro;
+
+public class ContadorItems : MonoBehaviour
 {
-    if (!winnerCanvas)
+    [Header("UI HUD")]
+    public TMP_Text textoContador;  // Texto TMP del HUD ("Cristales: X / Y")
+
+    [Header("Configuración")]
+    public int totalItems = 5;
+    public float segundosPorItem = 5f;
+
+    [Header("Referencias")]
+    public Contador contador;  // Arrastra el objeto con el script Contador
+
+    int itemsRecogidos = 0;
+
+    void Awake()
     {
-        Debug.LogError("❌ winnerCanvas no asignado/encontrado.");
-        return;
+        if (!contador) contador = FindFirstObjectByType<Contador>();
+        ActualizarUI();
     }
 
-    // 1) Asegurar jerarquía activa y Canvas habilitado
-    var t = winnerCanvas.transform;
-    while (t != null) { t.gameObject.SetActive(true); t = t.parent; } // activa padres
-    var canvasComp = winnerCanvas.GetComponent<Canvas>();
-    if (canvasComp) canvasComp.enabled = true;
-
-    // 2) Subir orden para que quede por encima del HUD
-    if (canvasComp)
+    public void SumarItem()
     {
-        canvasComp.overrideSorting = true;
-        canvasComp.sortingOrder = 500; // bien alto
+        itemsRecogidos++;
+        ActualizarUI();
+
+        // +5s por ítem
+        if (contador) contador.AgregarTiempo(segundosPorItem);
     }
 
-    // 3) Si hay CanvasGroup (Modern UI Pack a veces lo trae), hacer visible/clicable
-    var cg = winnerCanvas.GetComponentInChildren<CanvasGroup>(true);
-    if (cg)
+    void ActualizarUI()
     {
-        cg.alpha = 1f;
-        cg.interactable = true;
-        cg.blocksRaycasts = true;
+        if (textoContador)
+            textoContador.text = "Cristales: " + itemsRecogidos + " / " + totalItems;
     }
 
-    // 4) Desactivar GameOver si estuviera encendido (por si lo tapa)
-    var go = GameObject.Find("GameOverCanvas");
-    if (go) go.SetActive(false);
-
-    // 5) Actualizar textos
-    if (winnerItemsText)
-        winnerItemsText.text = $"Cristales: {itemsRecogidos} / {totalItems}";
-
-    if (contador && winnerTimeText)
-        winnerTimeText.text = "Tiempo: " + contador.GetTiempoTranscurrido().ToString("F2") + " s";
-
-    // 6) Mostrar y pausar
-    winnerCanvas.SetActive(true);
-    if (contador) contador.PausarJuego(); else { Time.timeScale = 0f; }
-
-    // 7) Asegurar cursor visible
-    Cursor.lockState = CursorLockMode.None;
-    Cursor.visible = true;
-
-    Debug.Log("🏆 WinnerCanvas forzado a mostrarse (orden/alpha activados).");
-}*/
-
-    void MostrarWinner()
-    {
-        // Preparar textos
-        if (winnerItemsText)
-            winnerItemsText.text = "Cristales: " + itemsRecogidos + " / " + totalItems;
-
-        if (contador && winnerTimeText)
-            winnerTimeText.text = "Tiempo: " + contador.GetTiempoTranscurrido().ToString("F2") + " s";
-
-        // Mostrar panel Winner y pausar juego
-        if (winnerCanvas) winnerCanvas.SetActive(true);
-        if (contador) contador.PausarJuego();
-
-        Debug.Log("🏆 ¡Ganaste! Todos los ítems han sido recolectados.");
-    }
+    // 🔹 Para leer desde la meta:
+    public int Recogidos => itemsRecogidos;
+    public int Total => totalItems;
 }
