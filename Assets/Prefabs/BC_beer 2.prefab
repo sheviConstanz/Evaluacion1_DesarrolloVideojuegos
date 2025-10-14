@@ -103,7 +103,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1802726444660508870}
-  m_Mesh: {fileID: 4300000, guid: e7d9917a77297824fb07b199fc7abb47, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 34ae0f9f79f5d734c9d4639692936e7a, type: 3}
 --- !u!1 &3644193211505448860
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 5129083939255584180}
   - component: {fileID: 3610807665161325352}
   m_Layer: 0
-  m_Name: BC_beer 1
+  m_Name: BC_beer 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,9 +159,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1.1055076
-  m_Height: 4.270135
+  m_Height: 6.8524866
   m_Direction: 1
-  m_Center: {x: -0.000011771917, y: 1.9801933, z: -0.09591222}
+  m_Center: {x: -0.000011771917, y: 1.5634739, z: -0.09591222}
 --- !u!82 &5129083939255584180
 AudioSource:
   m_ObjectHideFlags: 0
