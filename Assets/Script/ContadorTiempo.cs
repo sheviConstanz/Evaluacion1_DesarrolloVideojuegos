@@ -5,14 +5,19 @@ public class Contador : MonoBehaviour
 {
     [Header("UI")]
     public TMP_Text ContadorTexto;
-    [SerializeField] GameObject gameOverCanvas; // (opcional) arrástralo si quieres mostrar Game Over
+    [SerializeField] GameObject gameOverCanvas; // opcional
 
     [Header("Tiempo")]
     public float TiempoRestante = 60f; // tiempo inicial en segundos
     bool tiempoActivo = true;
 
+    // Guardamos el valor inicial para calcular tiempo transcurrido
+    public float TiempoInicial { get; private set; }
+
     void Start()
     {
+        TiempoInicial = TiempoRestante;
+
         if (gameOverCanvas) gameOverCanvas.SetActive(false);
         ActualizarTexto();
     }
@@ -39,7 +44,7 @@ public class Contador : MonoBehaviour
             ContadorTexto.text = "Tiempo restante: " + TiempoRestante.ToString("F2") + "seg";
     }
 
-    // Llama esto desde otros scripts para sumar tiempo (+)
+    // Suma tiempo desde otros scripts (ej: ítems)
     public void AgregarTiempo(float segundos)
     {
         if (!tiempoActivo) return;
@@ -47,12 +52,25 @@ public class Contador : MonoBehaviour
         ActualizarTexto();
     }
 
-    void FinDelTiempo()
+    // Devuelve el tiempo que tardó el jugador: inicial - restante
+    public float GetTiempoTranscurrido()
     {
-        if (gameOverCanvas) gameOverCanvas.SetActive(true);
+    return Time.timeSinceLevelLoad; // segundos desde que empezó la escena
+    }
+
+    // Útil para pausar cuando se gana también
+    public void PausarJuego()
+    {
+        tiempoActivo = false;
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        Debug.Log("¡Se acabó el tiempo!");
+    }
+
+    void FinDelTiempo()
+    {
+        if (gameOverCanvas) gameOverCanvas.SetActive(true);
+        PausarJuego();
+        Debug.Log("⏰ ¡Se acabó el tiempo!");
     }
 }

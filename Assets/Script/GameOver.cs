@@ -31,25 +31,4 @@ public class GameOver : MonoBehaviour
         Application.Quit();
     #endif
     }
-}
-
-/*using UnityEngine;
-using UnityEngine.SceneManagement;
-
-public class GameOver : MonoBehaviour
-{
-    public void Reiniciar()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-    public void VolverMenu()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
-    public void Salir()
-    {
-        UnityEditor.EditorApplication.isPlaying = false; // Detiene el juego en el editor
-        Application.Quit();
-    }
-}
-*/
+} 
