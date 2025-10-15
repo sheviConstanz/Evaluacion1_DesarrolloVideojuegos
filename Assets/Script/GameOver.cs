@@ -5,8 +5,8 @@ public class GameOver : MonoBehaviour
 {
     public void Reiniciar()
     {
-        Time.timeScale = 1f;                          // ← resetear
-        Cursor.lockState = CursorLockMode.Locked;     // ← volver a bloquear
+        Time.timeScale = 1f;                          // resetear
+        Cursor.lockState = CursorLockMode.Locked;     // volver a bloquear
         Cursor.visible = false;
 
         Scene current = SceneManager.GetActiveScene();
@@ -15,7 +15,7 @@ public class GameOver : MonoBehaviour
 
     public void VolverMenu()
     {
-        Time.timeScale = 1f;                          // ← resetear
+        Time.timeScale = 1f;                          // resetear
         Cursor.lockState = CursorLockMode.None;       // en menú conviene libre
         Cursor.visible = true;
 

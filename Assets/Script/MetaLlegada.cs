@@ -53,7 +53,7 @@ public class MetaWinner : MonoBehaviour
     {
         if (!winnerCanvas)
         {
-            Debug.LogError("❌ WinnerCanvas no asignado.");
+            Debug.LogError("WinnerCanvas no asignado.");
             return;
         }
 
@@ -87,104 +87,10 @@ public class MetaWinner : MonoBehaviour
             else Time.timeScale = 0f;
         }
 
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
         Debug.Log("🏆 ¡Meta alcanzada! Mostrando Winner y reproduciendo sonido.");
     }
 }
-
-/*using UnityEngine;
-using TMPro;
-
-[RequireComponent(typeof(Collider))]
-public class MetaWinner : MonoBehaviour
-{
-    [Header("Detección del jugador")]
-    [SerializeField] string tagJugador = "Player";
-
-    [Header("UI Winner")]
-    [SerializeField] GameObject winnerCanvas;      // Canvas/Panel Winner
-    [SerializeField] TMP_Text winnerItemsText;     // Texto TMP para "Cristales: X / Y"
-    [SerializeField] TMP_Text winnerTimeText;      // Texto TMP para "Tiempo: XX.XX s"
-
-    [Header("Configuración")]
-    [SerializeField] bool pausarAlGanar = true;
-    [SerializeField] bool exigirTodosLosItems = false; // si se requiere recolectar todo
-
-    Contador contador;
-    ContadorItems items;
-
-    void Reset()
-    {
-        var col = GetComponent<Collider>();
-        if (col) col.isTrigger = true;
-    }
-
-    void Awake()
-    {
-        contador = FindFirstObjectByType<Contador>();
-        items = FindFirstObjectByType<ContadorItems>();
-        if (winnerCanvas) winnerCanvas.SetActive(false);
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (!other.CompareTag(tagJugador)) return;
-
-        // Verifica si juntó todo (si se exige)
-        if (exigirTodosLosItems && items && items.Recogidos < items.Total) return;
-
-        MostrarWinner();
-    }
-
-    void MostrarWinner()
-    {
-        if (!winnerCanvas)
-        {
-            Debug.LogError("❌ No se asignó el WinnerCanvas. Arrástralo en el Inspector.");
-            return;
-        }
-
-        // Actualizar textos
-        if (winnerItemsText && items)
-            winnerItemsText.text = $"Cristales: {items.Recogidos} / {items.Total}";
-
-        if (winnerTimeText && contador)
-        {
-            float t = contador.GetTiempoPartida();
-            int min = Mathf.FloorToInt(t / 60f);
-            float seg = t % 60f;
-            winnerTimeText.text = $"Tiempo: {min:00}:{seg:00.00}";
-        }
-
-        // Mostrar el canvas
-        winnerCanvas.SetActive(true);
-
-        // Orden alto para que quede encima
-        var cv = winnerCanvas.GetComponent<Canvas>();
-        if (cv) { cv.overrideSorting = true; cv.sortingOrder = 500; }
-
-        // CanvasGroup visible
-        var cg = winnerCanvas.GetComponentInChildren<CanvasGroup>(true);
-        if (cg)
-        {
-            cg.alpha = 1f;
-            cg.interactable = true;
-            cg.blocksRaycasts = true;
-        }
-
-        // Pausa y cursor visible
-        if (pausarAlGanar)
-        {
-            if (contador) contador.PausarJuego();
-            else Time.timeScale = 0f;
-        }
-
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
-        Debug.Log("🏆 ¡Meta alcanzada! Mostrando Winner.");
-    }
-}
-*/

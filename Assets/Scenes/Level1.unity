@@ -12516,7 +12516,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ContadorTexto: {fileID: 2102915773}
   gameOverCanvas: {fileID: 699104050}
-  TiempoRestante: 120
+  TiempoRestante: 60
+  yaGano: 0
 --- !u!114 &949934585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12530,7 +12531,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textoContador: {fileID: 1243809926}
-  totalItems: 5
+  totalItems: 0
   segundosPorItem: 5
   contador: {fileID: 0}
 --- !u!1001 &951194930
@@ -16166,7 +16167,6 @@ GameObject:
   - component: {fileID: 1243809925}
   - component: {fileID: 1243809927}
   - component: {fileID: 1243809926}
-  - component: {fileID: 1243809928}
   m_Layer: 5
   m_Name: TextContadorObejos
   m_TagString: Untagged
@@ -16292,22 +16292,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1243809924}
   m_CullTransparentMesh: 1
---- !u!114 &1243809928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1243809924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09ff551422b8a9643b52a817ff73e89a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textoContador: {fileID: 1243809926}
-  totalItems: 5
-  segundosPorItem: 5
-  contador: {fileID: 0}
 --- !u!1001 &1256385489
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27991,8 +27975,6 @@ GameObject:
   - component: {fileID: 2102915775}
   - component: {fileID: 2102915774}
   - component: {fileID: 2102915773}
-  - component: {fileID: 2102915776}
-  - component: {fileID: 2102915777}
   m_Layer: 5
   m_Name: TextTiempo
   m_TagString: Untagged
@@ -28120,37 +28102,6 @@ RectTransform:
   m_AnchoredPosition: {x: 1020.8413, y: 0}
   m_SizeDelta: {x: 1020.8413, y: 123.4994}
   m_Pivot: {x: 1, y: 1}
---- !u!114 &2102915776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2102915772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09ff551422b8a9643b52a817ff73e89a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textoContador: {fileID: 0}
-  totalItems: 5
-  segundosPorItem: 5
-  contador: {fileID: 0}
---- !u!114 &2102915777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2102915772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef7e9f03861957045a81b132ae65a709, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ContadorTexto: {fileID: 0}
-  gameOverCanvas: {fileID: 0}
-  TiempoRestante: 60
 --- !u!1001 &2103541748
 PrefabInstance:
   m_ObjectHideFlags: 0
