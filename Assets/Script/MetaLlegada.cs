@@ -66,7 +66,7 @@ public class MetaWinner : MonoBehaviour
 
         // Actualizar textos
         if (winnerItemsText && items)
-            winnerItemsText.text = $"Cristales: {items.Recogidos} / {items.Total}";
+            winnerItemsText.text = $"Cervezas: {items.Recogidos}";
 
         if (winnerTimeText && contador)
         {

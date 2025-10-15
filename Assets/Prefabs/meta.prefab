@@ -147,11 +147,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1be5a0c73e1a0fa4e8284d060faf635d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  etiquetaJugador: Player
-  indiceEscenaSiguiente: -1
-  nombreEscenaSiguiente: 
-  audioFuente: {fileID: 388711132759900182}
-  retardoAntesDeSalir: 0.5
+  tagJugador: Player
+  winnerCanvas: {fileID: 0}
+  winnerItemsText: {fileID: 0}
+  winnerTimeText: {fileID: 0}
+  pausarAlGanar: 1
+  exigirTodosLosItems: 0
+  sonidoVictoria: {fileID: 8300000, guid: 32b271a318ca11644b49f0d8b667e4ec, type: 3}
 --- !u!82 &388711132759900182
 AudioSource:
   m_ObjectHideFlags: 0
