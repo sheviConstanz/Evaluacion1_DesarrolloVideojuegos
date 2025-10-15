@@ -2,8 +2,6 @@
 
 **Plataformas 3D** en Unity (URP) ambientado en una **ciudad moderna rodeada por el océano**, con peleas de piratas de fondo. Eres un **vagabundo** que vive detrás de los edificios y tu objetivo es **recolectar la mayor cantidad de cervezas** antes de que **se acabe el tiempo**. Para **finalizar la partida**, debes **entrar en uno de los basureros** repartidos por el mapa **antes** de que el cronómetro llegue a cero.
 
-> **NOVEDAD:** **Cada cerveza otorga +5 segundos** adicionales al temporizador, lo que **aumenta tus posibilidades de explorar** el mapa por más tiempo y **conseguir más cervezas** en una misma partida.
-
 ---
 
 ## Tabla de contenidos
