@@ -85,7 +85,7 @@ public class ContadorItems : MonoBehaviour
     void ActualizarUI()
     {
         if (textoContador)
-            textoContador.text = "Cristales: " + itemsRecogidos + " / " + totalItems;
+            textoContador.text = "Cervezas: " + itemsRecogidos;
     }
 
     // 🔹 Para leer desde la meta:

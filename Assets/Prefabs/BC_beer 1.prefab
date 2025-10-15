@@ -158,10 +158,10 @@ CapsuleCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.1055076
-  m_Height: 4.270135
+  m_Radius: 1.6337413
+  m_Height: 4.909378
   m_Direction: 1
-  m_Center: {x: -0.000011771917, y: 1.9801933, z: -0.09591222}
+  m_Center: {x: 0.036386847, y: 2.2998147, z: -0.09591222}
 --- !u!82 &5129083939255584180
 AudioSource:
   m_ObjectHideFlags: 0
