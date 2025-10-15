@@ -12,10 +12,9 @@
 - [Requisitos técnicos (evaluación)](#requisitos-técnicos-evaluación)
 - [Controles](#controles)
 - [Objetos clave en la escena](#objetos-clave-en-la-escena)
-- [Configuración rápida](#configuración-rápida)
+- [Requisitos y versión](#requisitos-y-versión)
 - [Cómo ejecutar](#cómo-ejecutar)
 - [Créditos](#créditos)
-- [Licencia](#licencia)
 
 ---
 
@@ -73,15 +72,8 @@
 
 ---
 
-## Flujo de escenas
-**MainMenu** → **Level1 (Ciudad)** → **Fin/Victoria** (al entrar a basurero) → **MainMenu** o **Level2** (si existe).  
-> Asegúrate de agregar todas las escenas a **File → Build Settings**.
-
-
----
-
 ## Requisitos y versión
-- **Unity**: 2021.3+ o 2022.3+ (LTS recomendado).  
+- **Unity 6.0**: version 6000.0.5.8f2(LTS recomendado).  
 - **URP** habilitado (Depth/Opaque Texture sugeridos).  
 - **Color Space**: Linear.
 
@@ -99,7 +91,3 @@
 - Arte low poly y props: 
 - Audio: **música/SFX libres** o provistos por el curso (citar fuentes si corresponde)
 
----
-
-## Licencia
-Proyecto con fines académicos. Ajusta la licencia (MIT/Apache 2.0) o mantén privado para evaluación.
